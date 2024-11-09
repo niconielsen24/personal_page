@@ -87,4 +87,4 @@ The project uses **React** for the frontend. The frontend communicates with the 
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [https://www.mit.edu/~amini/LICENSE.md](LICENSE) file for details.
