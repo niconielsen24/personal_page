@@ -12,6 +12,16 @@ dist
 dist-ssr
 *.local
 
+# Ignore binaries
+*.exe
+*.out
+*.bin
+*.dll
+*.so
+*.dylib
+
+app
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
