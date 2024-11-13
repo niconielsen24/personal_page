@@ -23,6 +23,10 @@ func InitGameHandler(ts *TicTacToeServer) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		EnableCors(&w)
 		w.Header().Set("Content-Type", "application/json")
+    if r.Method != http.MethodPost {
+      w.WriteHeader(http.StatusMethodNotAllowed)
+      return
+    }
 
 		t := gamelogic.Tictactoe{}
 		err := t.InitTictactoe()

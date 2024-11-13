@@ -1,5 +1,6 @@
 import React from "react";
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
+import Board from "../../Board/Board";
 
 export default function AppLayout({ onClick, onInput, message, name }){
   const PopoverButtonStyle = "px-4 py-2 font-semibold text-white bg-gray-800 rounded-md shadow-lg transition-all hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2";
@@ -12,6 +13,8 @@ export default function AppLayout({ onClick, onInput, message, name }){
       <h1 className="text-3xl font-bold animate-fadeIn" >
         Hola {name} !
       </h1>}
+
+      <Board/>
 
       <Popover className="relative">
         <PopoverButton className={PopoverButtonStyle}>
@@ -27,14 +30,6 @@ export default function AppLayout({ onClick, onInput, message, name }){
           </div>
         </PopoverPanel>
       </Popover>
-
-      {message && <h1 className="text-3xl font-bold animate-fadeIn">{message}</h1>}
-      
-      <button
-        onClick={onClick}
-      >
-        Click Me!
-      </button>
     </>
   );
 }
