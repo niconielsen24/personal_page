@@ -1,12 +1,12 @@
-export async function tryGoServer(){
-  const response = await fetch("http://localhost:8000",{
-    method : "GET",
-    headers : {
-      "Content-Type" : "application/json"
+export async function tryGoServer() {
+  const response = await fetch("http://localhost:8000", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
     }
   });
 
-  if (!response.ok){
+  if (!response.ok) {
     throw new Error("walter frank ? se rompio xd");
   }
 
@@ -14,17 +14,36 @@ export async function tryGoServer(){
 }
 
 export async function initTicTacToeGame(ip_addr) {
-  const Addr = ip_addr;
-  const response = await fetch(`${Addr}/init`,{
-    method : "POST",
-    headers : {
-      "Content-Type" : "application/json"
+  const Addr = encodeURI(ip_addr);
+  const response = await fetch(`${Addr}/init`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
     }
   });
 
-  if (!response.ok){
-    throw new Error(response.status, response.statusText)
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status} ${response.statusText}`)
   }
-  
+
   return response.json();
+}
+
+export async function makeMove(ip_addr, pos, game_uuid) {
+  const Addr = encodeURI(ip_addr);
+  const response = await fetch(`${Addr}/makeMove`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      game_id: game_uuid,
+      position: pos
+    })
+  })
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status} ${response.statusText}`)
+  }
+
+  return response.json()
 }
