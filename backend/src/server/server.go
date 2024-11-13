@@ -35,13 +35,6 @@ func (ts *TicTacToeServer) InitServer(addr string ,rs []url.URL, hs []http.Handl
   return nil
 }
 
-func EnableCors(w *http.ResponseWriter) {
-	(*w).Header().Set("Access-Control-Allow-Origin", "*")
-	(*w).Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
-	(*w).Header().Set("Access-Control-Allow-Headers", "Content-Type")
-}
-
-
 // Routes and handlers must have paired orders, otherwise a path may result in an
 // undesired outcome
 func Routes(rs []url.URL, hs []http.Handler) (error, *http.ServeMux) {
@@ -52,7 +45,7 @@ func Routes(rs []url.URL, hs []http.Handler) (error, *http.ServeMux) {
 	}
 
 	for i, route := range rs {
-		mux.Handle(route.Path, hs[i])
+		mux.Handle(route.Path, CorsMiddleWare(hs[i]))
 	}
 
 	return nil, mux

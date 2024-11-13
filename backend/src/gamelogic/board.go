@@ -19,8 +19,8 @@ const (
 )
 
 type Position struct {
-	x uint8
-	y uint8
+  X uint8 `json:"x"`
+  Y uint8 `json:"y"`
 }
 
 type Board struct {
@@ -28,7 +28,7 @@ type Board struct {
 }
 
 func (p *Position) OutOfBounds() bool {
-  return IsOutOfBounds(p.x, 0, 2) || IsOutOfBounds(p.y, 0, 2)
+  return IsOutOfBounds(p.X, 0, 2) || IsOutOfBounds(p.Y, 0, 2)
 }
 
 func (b *Board) InitBoard() {
@@ -51,7 +51,7 @@ func (b *Board) BoardIsFull() bool {
 }
 
 func (b *Board) CheckWinner() Player {
-	for i := range b.Tiles {
+  for i := range b.Tiles {
 		if b.Tiles[i][0] == PlayerX && b.Tiles[i][1] == PlayerX && b.Tiles[i][2] == PlayerX {
 			return PlayerX
 		}
@@ -87,16 +87,16 @@ func IsOutOfBounds(val uint8, min uint8, max uint8) bool {
 }
 
 func (b *Board) TurnTile(p Player, pos Position) error {
-	if IsOutOfBounds(pos.x, 0, 2) {
+	if IsOutOfBounds(pos.X, 0, 2) {
 		return ErrPosistionOutOfBounds
 	}
-	if IsOutOfBounds(pos.y, 0, 2) {
+	if IsOutOfBounds(pos.Y, 0, 2) {
 		return ErrPosistionOutOfBounds
 	}
-	if b.Tiles[pos.x][pos.y] != Empty {
+	if b.Tiles[pos.X][pos.Y] != Empty {
 		return ErrTileAlreadyUsed
 	}
-	b.Tiles[pos.x][pos.y] = p
+	b.Tiles[pos.X][pos.Y] = p
 	return nil
 }
 

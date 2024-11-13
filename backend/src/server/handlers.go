@@ -4,7 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-
+  "bytes"
+  "io"
+  
 	"github.com/google/uuid"
 	"github.com/niconielsen24/goapp/gamelogic"
 )
@@ -15,18 +17,16 @@ type MoveRequest struct {
 }
 
 func RootHandler(w http.ResponseWriter, r *http.Request) {
-	EnableCors(&w)
 	fmt.Fprint(w, "Hello from root TicTacToeServer")
 }
 
 func InitGameHandler(ts *TicTacToeServer) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		EnableCors(&w)
 		w.Header().Set("Content-Type", "application/json")
-    if r.Method != http.MethodPost {
-      w.WriteHeader(http.StatusMethodNotAllowed)
-      return
-    }
+		if r.Method != http.MethodPost {
+			w.WriteHeader(http.StatusMethodNotAllowed)
+			return
+		}
 
 		t := gamelogic.Tictactoe{}
 		err := t.InitTictactoe()
@@ -48,7 +48,6 @@ func InitGameHandler(ts *TicTacToeServer) http.HandlerFunc {
 
 func MakeMoveHandler(ts *TicTacToeServer) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		EnableCors(&w)
 		w.Header().Set("Content-Type", "application/json")
 
 		if r.Method != http.MethodPut {
@@ -75,12 +74,16 @@ func MakeMoveHandler(ts *TicTacToeServer) http.HandlerFunc {
 		}
 		if game_ref == nil {
 			http.Error(w, "Game does not exist", http.StatusBadRequest)
-		  return
-    }
+			return
+		}
 		if make_move_err := game_ref.MakeMove(gamelogic.PlayerX, position); make_move_err != nil {
 			http.Error(w, make_move_err.Error(), http.StatusBadRequest)
 			return
 		}
+
+    gamelogic.Move(game_ref)
+    game_ref.GameOver()
+
 		if encode_err := json.NewEncoder(w).Encode(*game_ref); encode_err != nil {
 			http.Error(w, "Failed to encode new game state", http.StatusInternalServerError)
 			return
@@ -90,5 +93,26 @@ func MakeMoveHandler(ts *TicTacToeServer) http.HandlerFunc {
 }
 
 func printRequest(r *http.Request) {
-	fmt.Printf("Request : %v %v\n", r.Method, r.URL.Path)
+	fmt.Printf("Request:\n")
+	fmt.Printf("  Method: %s\n", r.Method)
+	fmt.Printf("  URL: %s\n", r.URL.String())
+	fmt.Printf("  Protocol: %s\n\n", r.Proto)
+
+	fmt.Println("Headers:")
+	for name, values := range r.Header {
+		for _, value := range values {
+			fmt.Printf("  %s: %s\n", name, value)
+		}
+	}
+	fmt.Println()
+
+	if r.Body != nil {
+		var buf bytes.Buffer
+		tee := io.TeeReader(r.Body, &buf)
+		bodyBytes, _ := io.ReadAll(tee)
+		fmt.Printf("Body:\n%s\n", string(bodyBytes))
+		r.Body = io.NopCloser(&buf)
+	} else {
+		fmt.Println("Body: <empty>")
+	}
 }

@@ -10,14 +10,16 @@ var (
 )
 
 type Tictactoe struct {
-	Board Board
-	Turn  Player
-	ID    uuid.UUID
+	Board  Board
+	Turn   Player
+	ID     uuid.UUID
+	Winner Player
 }
 
 func (t *Tictactoe) InitTictactoe() error {
 	t.Board.InitBoard()
 	t.Turn = PlayerX
+  t.Winner = Empty
 	uuid, err := uuid.NewUUID()
 	if err != nil {
 		return err
@@ -34,7 +36,7 @@ func (t *Tictactoe) GameOver() (bool, Player) {
 	if winner == Empty {
 		return false, Empty
 	}
-
+  t.Winner = winner
 	return true, winner
 }
 
