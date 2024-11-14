@@ -13,12 +13,14 @@ func main() {
 		{Path: "/"},
 		{Path: "/init"},
     {Path: "/makeMove"},
+    {Path: "/killGame"},
 	}
 
 	handlers := []http.Handler{
 		http.HandlerFunc(server.RootHandler),
 		http.HandlerFunc(server.InitGameHandler(ts)),
     http.HandlerFunc(server.MakeMoveHandler(ts)),
+    http.HandlerFunc(server.KillGameHandler(ts)),
 	}
 
 	ts.InitServer(":8000", routes, handlers)

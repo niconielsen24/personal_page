@@ -1,25 +1,39 @@
-import { useState } from 'react'
+import { useRef } from 'react'
 import '../../App.css'
 import AppLayout from "./components/AppLayout.jsx"
-import { tryGoServer } from "../../services/services.js"
+import { useGameStore } from '../../services/stores.js'
+import { initTicTacToeGame, killGame } from '../../services/services.js'
 
 function App() {
-  const [message, setMessage] = useState(null)
-  const [name, setName] = useState(null)
+  const boardState = useGameStore(state => state.boardState)
+  const setBoardState = useGameStore(state => state.setBoardState)
+  const gameUUID = useGameStore(state => state.gameUUID)
+  const setGameUUID = useGameStore(state => state.setGameUUID)
+  const setSelectedTile = useGameStore(state => state.setSelectedTile)
 
-  const handleClick = async () => {
-    try {
-      const response = await tryGoServer();
-      console.log(response);
-      setMessage(response.message);
-    } catch (err) {
-      console.log(err);
+  const resetGameState = useRef(() => {
+    setBoardState(null)
+    setSelectedTile(null)
+    setGameUUID(null)
+  })
+
+  const handleSubmit = async () => {
+    if (boardState) {
+      resetGameState.current()
+      try {
+        await killGame("http://localhost:8000", gameUUID)
+        const response = await initTicTacToeGame("http://localhost:8000")
+        setGameUUID(response.ID)
+        setBoardState(response.Board)
+      } catch (err) {
+        console.log(err.Payload)
+      }
     }
-  };
+  }
 
   return (
     <>
-      <AppLayout onClick={handleClick} onInput={(e) => setName(e.target.value)} name={name} message={message}/>
+      <AppLayout onSubmit={handleSubmit} />
     </>
   )
 }

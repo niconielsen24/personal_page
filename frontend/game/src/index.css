@@ -1,89 +1,77 @@
-/* src/index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
 :root {
+  --barn-red: #780000ff;
+  --fire-brick: #c1121fff;
+  --papaya-whip: #fdf0d5ff;
+  --papaya-whip-dark: #e1d0a7ff; /* Slightly darker shade of Papaya Whip */
+  --prussian-blue: #003049ff;
+  --air-superiority-blue: #669bbcff;
+
+  /* New color palette */
+  --dark-grayish-blue: #212a31; /* Dark Grayish Blue */
+  --medium-dark-blue-gray: #2e3944; /* Medium Dark Blue Gray */
+  --dark-cyan-blue: #124e66; /* Dark Cyan Blue */
+  --light-slate-blue: #748d92; /* Light Slate Blue */
+  --light-grayish-blue: #d3d9d4; /* Light Grayish Blue */
+}
+
+/* Body background using Dark Grayish Blue */
+body {
+  background-color: var(--dark-grayish-blue); /* Dark Grayish Blue */
+  color: var(--light-grayish-blue); /* Light Grayish Blue text color */
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Optional: set lighter background for certain elements */
+.bg-light {
+  background-color: var(--light-slate-blue); /* Light Slate Blue for lighter backgrounds */
+}
+
+/* Link styles */
 a {
+  color: var(--dark-cyan-blue); /* Dark Cyan Blue */
   font-weight: 500;
-  color: #646cff;
   text-decoration: inherit;
 }
+
 a:hover {
-  color: #535bf2;
+  color: var(--fire-brick); /* Fire Brick color on hover */
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* Header styles */
+header {
+  background-color: var(--medium-dark-blue-gray); /* Medium Dark Blue Gray */
+  color: var(--light-grayish-blue); /* Light Grayish Blue text color */
 }
 
 button {
+  background-color: var(--dark-cyan-blue); /* Dark Cyan Blue */
+  color: var(--light-grayish-blue); /* Light Grayish Blue text */
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
-  border-color: #646cff;
+  border-color: var(--fire-brick); /* Fire Brick color on hover */
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
-/* index.css */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.5s ease-in-out;
 }
 

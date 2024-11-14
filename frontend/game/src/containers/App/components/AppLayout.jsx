@@ -1,37 +1,53 @@
-import React from "react";
-import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
+import React, { useState, useEffect } from "react";
+import { Button } from "@headlessui/react";
 import Board from "../../Board/Board";
+import Header from "./Header";
+import Project from "../../../components/Project";
 
-export default function AppLayout({ onInput, name }) {
-  const PopoverButtonStyle = "px-4 py-2 font-semibold text-white bg-gray-800 rounded-md shadow-lg transition-all hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2";
-  const PopoverPanelStyle = "absolute z-10 mt-2 p-4 w-48 bg-gray-900 rounded-lg shadow-lg border border-indigo-500 text-white animate-fade-in transition ease-out duration-300 transform opacity-0 scale-95 neon-shadow"
-  const PopoverInputStyle = "w-full px-3 py-2 bg-gray-800 text-white placeholder-gray-400 border border-gray-700 rounded-md shadow-inner focus:outline-none focus:ring-2 focus:ring-indigo-400"
+const BoardContainerStyle =
+  "p-4 grid grid-rows-6 grid-cols-5 justify-items-start bg-custom-navy rounded-lg sm:w-[200px] sm:h-[200px] lg:w-[400px] lg:h-[400px] border border-custom-blue shadow-inset-light";
+const HeaderContainerStyle =
+  "fixed top-0 left-0 w-full bg-custom-blue text-custom-cyan shadow-md z-50 p-4 font-bold text-xl flex justify-between items-center";
+const TicTacToeButtonContainerStyle =
+  "p-3 row-span-1 col-span-5 text-custom-navy";
+
+export default function AppLayout({ onSubmit }) {
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    fetch('../../../src/data/projects.json') 
+      .then((response) => response.json())
+      .then((data) => setProjects(data.projects))
+      .catch((error) => console.error('Error loading projects:', error));
+  }, []);
 
   return (
     <>
-      {name &&
-        <h1 className="text-3xl font-bold animate-fadeIn" >
-          Hola {name} !
-        </h1>
-      }
-      <Popover className="relative">
-        <PopoverButton className={PopoverButtonStyle}>
-          Jugar
-        </PopoverButton>
-        <PopoverPanel className={PopoverPanelStyle}>
-          <div>
-            <input
-              placeholder="Enter Name"
-              className={PopoverInputStyle}
-              onInput={onInput}
-            />
-          </div>
-        </PopoverPanel>
-      </Popover>
-      <div className="p-4 w-[400px] h-[400px]">
-        <Board />
-      </div>
+      <div className="flex mt-20 flex-col items-center justify-center">
+        <div className={HeaderContainerStyle}>
+          <Header />
+        </div>
 
+        <div className="">
+          {projects.map((project) => (
+            <Project
+              key={project.id}
+              name={project.name}
+              description={project.description}
+              img={project.imageUrl}
+              technologies={project.technologies}
+            />
+          ))}
+        </div>
+
+        <div className={BoardContainerStyle}>
+          <div className={TicTacToeButtonContainerStyle}>
+            <Button onClick={onSubmit}>Jugar</Button>
+          </div>
+          <Board />
+        </div>
+      </div>
     </>
   );
 }
+

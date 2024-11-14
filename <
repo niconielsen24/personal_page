@@ -1,0 +1,24 @@
+import React from "react";
+import { Button } from "@headlessui/react";
+import Board from "../../Board/Board";
+import Header from "./Header";
+
+const BoardContainerStyle = "p-4 sm:w-[200px] sm:h-[200px] lg:w-[400px] lg:h-[400px]"
+const HeaderContainerStyle = "fixed top-0 left-0 w-full bg-gray-900 text-white shadow-md z-50"
+const TicTacToeButtonContainerStyle = "p-3 slef-start"
+
+export default function AppLayout({ onSubmit }) {
+  return (
+    <>
+      <div className={HeaderContainerStyle}>
+        <Header></Header>
+      </div>
+      <div className={BoardContainerStyle}>
+        <div className={TicTacToeButtonContainerStyle}>
+          <Button onClick={onSubmit}>Jugar</Button>
+        </div>
+        <Board />
+      </div>
+    </>
+  );
+}
