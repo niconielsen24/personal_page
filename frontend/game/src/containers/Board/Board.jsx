@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 import { initTicTacToeGame, makeMove } from "../../services/services"
 import BoardLayout from "./components/BoardLayout"
 import { useGameStore } from "../../services/stores"
+import Spinner from "../../components/Spinner"
+import ServerDown from "../../components/ServerDown"
 
 export default function Board() {
   const [error, setError] = useState(null)
@@ -41,8 +43,8 @@ export default function Board() {
     fetchMove()
  }, [selectedTile, gameUUID])
 
-  if (error) return (<div>{error}</div>)
-  if (loading) return (<div>{loading}</div>)
+  if (error) return (<ServerDown message={error}/>)
+  if (loading) return (<Spinner />)
 
   return (
     <>

@@ -34,8 +34,9 @@ export default function AppLayout({ onSubmit }) {
               key={project.id}
               name={project.name}
               description={project.description}
-              img={project.imageUrl}
+              img={project.image_url}
               technologies={project.technologies}
+              repo_url={project.repo_url}
             />
           ))}
         </div>

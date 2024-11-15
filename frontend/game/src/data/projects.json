@@ -1,20 +1,18 @@
 {
   "projects": [
     {
-      "id": 1,
-      "name": "Project 1",
-      "description": "This is a description of Project 1.",
-      "imageUrl": "../assets/react.svg",
-      "technologies": ["React", "Tailwind CSS"],
-      "url": "https://example.com/project1"
-    },
-    {
-      "id": 2,
-      "name": "Project 2",
-      "description": "This is a description of Project 2.",
-      "imageUrl": "../assets/react.svg",
-      "technologies": ["Node.js", "Express"],
-      "url": "https://example.com/project2"
+      "name": "Personal Page Project",
+      "description": "A responsive and interactive personal portfolio page showcasing projects and skills using modern web technologies.",
+      "image_url": "https://example.com/personal-page-preview.png",
+      "repo_url": "https://github.com/niconielsen24/personal_page",
+      "technologies": [
+        "JavaScript",
+        "React",
+        "Golang",
+        "Tailwind",
+        "Zustand",
+        "Python"
+      ]
     }
   ]
 }
