@@ -22,16 +22,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'  # or specify your node version
-      - name: Go to dir
-        run : |
-          cd frontend/game
 
       - name: Install dependencies
         run: |
+          cd frontend/game
           npm install
         
       - name: Build Vite app
         run: |
+          cd frontend/game
           npm run dev
         
       - name: Deploy (optional)
