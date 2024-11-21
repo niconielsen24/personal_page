@@ -25,11 +25,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm install
+          frontend/game/npm install
         
       - name: Build Vite app
         run: |
-          npm run build
+          frontend/game/npm run build
         
       - name: Deploy (optional)
         run: |
