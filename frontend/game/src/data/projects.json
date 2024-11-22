@@ -13,6 +13,16 @@
         "Zustand",
         "Python"
       ]
+    },
+    {
+      "name": "Flocking Simulation",
+      "description": "A simple boids flocking simulation using the go programming language and web assembly",
+      "image_url": "",
+      "repo_url": "https://github.com/niconielsen24/boids_sim_go_wasm",
+      "technologies": [
+        "Golang",
+        "WASM"
+      ]
     }
   ]
 }
