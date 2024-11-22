@@ -1,0 +1,39 @@
+name: Vite App CI
+
+on:
+  push:
+    branches:
+      - main
+      - 'release/*'
+  pull_request:
+    branches:
+      - main
+      - 'release/*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'  # or specify your node version
+
+      - name: Install dependencies
+        run: |
+          cd frontend/game
+          npm install
+        
+      - name: Build Vite app
+        run: |
+          cd frontend/game
+          npm run dev
+        
+      - name: Deploy (optional)
+        run: |
+          # Add any deployment steps here, such as pushing to GitHub Pages
+          # For example, using Vercel or Netlify CLI, or GitHub Pages
