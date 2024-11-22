@@ -1,0 +1,28 @@
+{
+  "projects": [
+    {
+      "name": "Personal Page Project",
+      "description": "A responsive and interactive personal portfolio page showcasing projects and skills using modern web technologies.",
+      "image_url": "https://example.com/personal-page-preview.png",
+      "repo_url": "https://github.com/niconielsen24/personal_page",
+      "technologies": [
+        "JavaScript",
+        "React",
+        "Golang",
+        "Tailwind",
+        "Zustand",
+        "Python"
+      ]
+    },
+    {
+      "name": "Flocking Simulation",
+      "description": "A simple boids flocking simulation using the go programming language and web assembly",
+      "image_url": "",
+      "repo_url": "https://github.com/niconielsen24/boids_sim_go_wasm",
+      "technologies": [
+        "Golang",
+        "WASM"
+      ]
+    }
+  ]
+}
