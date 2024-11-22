@@ -3,6 +3,7 @@ import { Button } from "@headlessui/react";
 import Board from "../../Board/Board";
 import Header from "./Header";
 import Project from "../../../components/Project";
+import jsondata from "../../../../public/data/projects.json"
 
 const BoardContainerStyle =
   "p-4 grid grid-rows-6 grid-cols-5 justify-items-start bg-custom-navy rounded-lg sm:w-[200px] sm:h-[200px] lg:w-[400px] lg:h-[400px] border border-custom-blue shadow-inset-light";
@@ -13,13 +14,9 @@ const TicTacToeButtonContainerStyle =
 
 export default function AppLayout({ onSubmit }) {
   const [projects, setProjects] = useState([]);
-
   useEffect(() => {
-    fetch('../../../src/data/projects.json') 
-      .then((response) => response.json())
-      .then((data) => setProjects(data.projects))
-      .catch((error) => console.error('Error loading projects:', error));
-  }, []);
+    setProjects(jsondata.projects)
+  }, [])
 
   return (
     <>
